@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
-public class imageTimer : MonoBehaviour
+public class ImageTimer : MonoBehaviour
 {
     public float MaxTime;
-    
-    private Image img;
+    public bool Tick;
+    [SerializeField] private Image img;
     private float currentTime;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,12 @@ public class imageTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Tick = false;
         currentTime -= Time.deltaTime;
         
+        if (currentTime <= 0)
+            Tick = true;
+            currentTime = MaxTime;
+        img.fillAmount = currentTime / MaxTime;
     }
 }
